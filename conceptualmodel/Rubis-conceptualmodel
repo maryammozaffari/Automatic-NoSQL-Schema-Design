@@ -1,0 +1,91 @@
+
+  # Define entities along with the size and cardinality of their fields
+  # as well as an estimated number of each entity
+
+  (Entity 'Categories' do
+    ID     'ID'
+    String 'Name', 20
+    Integer 'Dummy', count: 1
+  end) * 100
+
+  (Entity 'Regions' do
+    ID      'ID'
+    String  'Name', 25
+    Integer 'Dummy', count: 1
+  end) * 62
+
+  (Entity 'Users' do
+    ID         'ID'
+    String     'Firstname', 6
+    String     'Lastname', 7
+    String     'Nickname', 12
+    String     'Password', 15
+    String     'Email', 23
+    Integer    'Rating', count: 50
+    Float      'Balance', count: 10,000
+    Date       'Creation_date'
+  end) * 150,000
+
+  (Entity 'Items' do
+    ID         'ID'
+    String     'Name', 19
+    String     'Description', 197
+    Float      'Initial_price'
+    Integer    'Quantity', count: 100
+    Float      'Reserve_price'
+    Float      'buy_now'
+    Integer    'Nb_of_bids', count: 100
+    Float      'Max_bid'
+    Date       'Start_date'
+    Date       'End_date'
+  end) * 40,000
+
+  (Entity 'Bids' do
+    ID         'ID'
+    Integer    'Qty', count: 5
+    Float      'bid'
+    Date       'Date'
+  end) * 300,000
+
+  (Entity 'Comments' do
+    ID         'ID'
+    Integer    'Rating', count: 10
+    Date       'Date'
+    String     'Comment', 130
+  end) * 110,000
+
+  (Entity 'Buynow' do
+    ID         'ID'
+    Integer    'Qty', count: 4
+    Date       'Date'
+  end) * 180,000
+
+
+  region:         'users' => 'regions'
+
+
+  sell:           'items' => 'users'
+
+
+  category:       'items' => 'categories'
+
+  
+  bidding:        'bids'  => 'users'
+
+
+  bidden:         'bids'  => 'items'
+
+ 
+  send_from_user: 'comments' => 'users'
+
+  
+  recive_to_user: 'comments' => 'users'
+
+
+  comment_on:     'comments' => 'items'
+
+ 
+  buy:            'buynow'  => 'users'
+
+	
+  bought:         'buynow'     => 'items'
