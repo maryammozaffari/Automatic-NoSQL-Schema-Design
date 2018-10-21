@@ -1,0 +1,537 @@
+
+
+*******************Read Query*****************
+Query : select users.nickname, users.password from users where users.id = ?;
+Type : select
+weight : 7.65
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname, users.password
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select categories.id, categories.name from categories where categories.dummy = 1;
+Type : select
+weight : 7.65
+Partition_keys : categories.dummy
+Clustering_keys : categories.id
+Nonkey_columns : categories.name
+Entities : categories
+Relations : NULL
+
+*******************Read Query*****************
+Query : select items.name from items where items.id = ?;
+Type : select
+weight : 1.54
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.name
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select users.id, users.nickname, bids.id, bids.qty, bids.bid, bids.date from users.bidding.bids.bidden.items where items.id = ? order by bids.date;
+Type : select
+weight : 1.54
+Partition_keys : items.id
+Clustering_keys : bids.id, bids.date, users.id
+Nonkey_columns : users.nickname, bids.bid, bids.qty
+Entities : bids, items, users
+Relations : bidden, bidding
+
+*******************Read Query*****************
+Query : select items.* from items where items.id = ?;
+Type : select
+weight : 14.17
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : items
+Relations : NULL
+
+*******************Read Query*****************
+Query : select bids.* from items.bidden.bids where items.id = ?;
+Type : select
+weight : 14.17
+Partition_keys : items.id
+Clustering_keys : bids.id
+Nonkey_columns : bids.bid, bids.date, bids.qty
+Entities : bids, items
+Relations : bidden
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select bids.qty, bids.date from bids.bidden.items where items.id = ? order by bids.bid;
+
+*******************Read Query*****************
+Query : select items.* from items.category.categories where categories.id = ? and items.end_date >= ?;
+Type : select
+weight : 15.94
+Partition_keys : categories.id
+Clustering_keys : items.id, items.end_date
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : categories, items
+Relations : category
+
+*******************Read Query*****************
+Query : select users.* from users where users.id = ?;
+Type : select
+weight : 2.48
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.email, users.nickname, users.lastname, users.rating, users.creation_date, users.firstname, users.password, users.balance
+Entities : users
+Relations : NULL
+
+*******************Read Query*****************
+Query : select comments.id, comments.rating, comments.date, comments.comment from comments.recive_to_user.users where users.id = ?;
+Type : select
+weight : 2.48
+Partition_keys : users.id
+Clustering_keys : comments.id
+Nonkey_columns : comments.comment, comments.date, comments.rating
+Entities : comments, users
+Relations : recive_to_user
+
+*******************Read Query*****************
+Query : select comments.id, comments.rating, comments.date, comments.comment from comments.send_from_user.users where users.id = ?;
+Type : select
+weight : 2.48
+Partition_keys : users.id
+Clustering_keys : comments.id
+Nonkey_columns : comments.comment, comments.date, comments.rating
+Entities : comments, users
+Relations : send_from_user
+
+*******************Read Query*****************
+Query : select users.nickname from users where users.id = ?;
+Type : select
+weight : 1.16
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select items.* from items where items.id = ?;
+Type : select
+weight : 1.16
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select items.quantity, items.nb_of_bids, items.end_date from items where items.id = ?;
+Type : select
+weight : 1.1
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.quantity, items.end_date, items.nb_of_bids
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select users.nickname, users.password from users where users.id = ?;
+Type : select
+weight : 5.4
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname, users.password
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select items.* from items where items.id = ?;
+Type : select
+weight : 5.4
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select bids.qty, bids.date from bids.bidden.items where items.id = ? order by bids.bid;
+Type : select
+weight : 5.4
+Partition_keys : items.id
+Clustering_keys : bids.bid, bids.id
+Nonkey_columns : bids.date, bids.qty
+Entities : bids, items
+Relations : bidden
+Deleted : true
+Msg : Rule 2 - Merge Read 
+Origin: select users.id, users.nickname, bids.id, bids.qty, bids.bid, bids.date from users.bidding.bids.bidden.items where items.id = ? order by bids.date;
+
+*******************Read Query*****************
+Query : select items.nb_of_bids, items.max_bid from items where items.id = ?;
+Type : select
+weight : 3.74
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.max_bid, items.nb_of_bids
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select users.nickname, users.password from users where users.id = ?;
+Type : select
+weight : 0.46
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname, users.password
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select items.* from items where items.id = ?;
+Type : select
+weight : 0.46
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : items
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select items.* from items where items.id = ?;
+
+*******************Read Query*****************
+Query : select users.* from users where users.id = ?;
+Type : select
+weight : 0.46
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.email, users.nickname, users.lastname, users.rating, users.creation_date, users.firstname, users.password, users.balance
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select users.rating from users where users.id = ?;
+Type : select
+weight : 0.45
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.rating
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select users.* from users where users.id = ?;
+Type : select
+weight : 1.71
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.email, users.nickname, users.lastname, users.rating, users.creation_date, users.firstname, users.password, users.balance
+Entities : users
+Relations : NULL
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select users.* from users where users.id = ?;
+
+*******************Read Query*****************
+Query : select comments.* from comments.recive_to_user.users where users.id = ?;
+Type : select
+weight : 1.71
+Partition_keys : users.id
+Clustering_keys : comments.id
+Nonkey_columns : comments.comment, comments.date, comments.rating
+Entities : comments, users
+Relations : recive_to_user
+Deleted : true
+Msg : Rule 1- Merge Read
+Origin Query: select comments.id, comments.rating, comments.date, comments.comment from comments.recive_to_user.users where users.id = ?;
+
+*******************Read Query*****************
+Query : select users.nickname from comments.send_from_user.users where comments.id = ?;
+Type : select
+weight : 1.71
+Partition_keys : comments.id
+Clustering_keys : users.id
+Nonkey_columns : users.nickname
+Entities : comments, users
+Relations : send_from_user
+
+*******************Read Query*****************
+Query : select buy_now.*, items.* from items.bought.buy_now.buy.users where users.id = ? and buy_now.date >= ?;
+Type : select
+weight : 1.71
+Partition_keys : users.id
+Clustering_keys : buy_now.date, items.id, buy_now.id
+Nonkey_columns : items.buy_now, items.name, items.max_bid, buy_now.qty, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : buy_now, items, users
+Relations : bought, buy
+
+*******************Read Query*****************
+Query : select items.* from items.sell.users where users.id = ? and items.end_date >= ?;
+Type : select
+weight : 1.71
+Partition_keys : users.id
+Clustering_keys : items.id, items.end_date
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : items, users
+Relations : sell
+
+*******************Read Query*****************
+Query : select items.* from items.bidden.bids.bidding.users where users.id = ? and items.end_date >= ?;
+Type : select
+weight : 1.71
+Partition_keys : users.id
+Clustering_keys : items.id, bids.id, items.end_date
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : bids, items, users
+Relations : bidden, bidding
+
+*******************Read Query*****************
+Query : select items.* from categories.category.items.sell.users.region.regions where regions.id = ? and categories.id = ? and items.end_date >= ?;
+Type : select
+weight : 6.34
+Partition_keys : regions.id, categories.id
+Clustering_keys : items.id, items.end_date, users.id
+Nonkey_columns : items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price
+Entities : regions, categories, items, users
+Relations : sell, category, region
+
+*******************Read Query*****************
+Query : select regions.id, regions.name from regions where regions.dummy = 1;
+Type : select
+weight : 5.39
+Partition_keys : regions.dummy
+Clustering_keys : regions.id
+Nonkey_columns : regions.name
+Entities : regions
+Relations : NULL
+
+*******************Materialized Views Query*****************
+Base Query : select users.id, users.nickname, bids.id, bids.qty, bids.bid, bids.date from users.bidding.bids.bidden.items where items.id = ? order by bids.date;
+Deleted Query : select bids.qty, bids.date from bids.bidden.items where items.id = ? order by bids.bid;
+Type : view
+Partition_keys : items.id
+Clustering_keys : bids.bid, bids.id, bids.date, users.id
+Nonkey_columns : bids.date, bids.qty
+
+*************************Insert Support-Table Query*************************************
+Base Query : insert into items set items.id = ?, items.name = ?, items.description = ?, items.initial_price = ?, items.quantity = ?, items.reserve_price = ?, items.buy_now = ?, items.nb_of_bids = 0, items.max_bid = 0, items.start_date = ?, items.end_date = ?  linkto category.categories(?categoris.id), sell.users(?users.id);
+Type : InsertSupportTable
+Partition_keys : users.id
+Clustering_keys : regions.id
+Nonkey_columns : Null 
+Relations : region
+MSG : 
+base Table: select items.* from categories.category.items.sell.users.region.regions where regions.id = ? and categories.id = ? and items.end_date >= ?;
+base Partition : [regions.id, categories.id]
+base Clustering : [items.id, items.end_date, users.id]
+base Columns : [items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price]
+base Entities : [regions, categories, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.quantity=?, items.nb_of_bids = ?, items.end_date = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : categories.id
+Nonkey_columns : items.end_date
+Relations : category
+MSG : base Table: select items.* from items.category.categories where categories.id = ? and items.end_date >= ?;
+base Partition : [categories.id]
+base Clustering : [items.id, items.end_date]
+base Entities : [categories, items]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.quantity=?, items.nb_of_bids = ?, items.end_date = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : buy_now.id, users.id
+Nonkey_columns : buy_now.date
+Relations : buy,bought
+MSG : base Table: select buy_now.*, items.* from items.bought.buy_now.buy.users where users.id = ? and buy_now.date >= ?;
+base Partition : [users.id]
+base Clustering : [buy_now.date, items.id, buy_now.id]
+base Entities : [buy_now, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.quantity=?, items.nb_of_bids = ?, items.end_date = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : users.id
+Nonkey_columns : items.end_date
+Relations : sell
+MSG : base Table: select items.* from items.sell.users where users.id = ? and items.end_date >= ?;
+base Partition : [users.id]
+base Clustering : [items.id, items.end_date]
+base Entities : [items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.quantity=?, items.nb_of_bids = ?, items.end_date = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : bids.id, users.id
+Nonkey_columns : items.end_date
+Relations : bidden,bidding
+MSG : base Table: select items.* from items.bidden.bids.bidding.users where users.id = ? and items.end_date >= ?;
+base Partition : [users.id]
+base Clustering : [items.id, bids.id, items.end_date]
+base Entities : [bids, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.quantity=?, items.nb_of_bids = ?, items.end_date = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : regions.id, categories.id, users.id
+Nonkey_columns : items.end_date
+Relations : category,sell,region
+MSG : base Table: select items.* from categories.category.items.sell.users.region.regions where regions.id = ? and categories.id = ? and items.end_date >= ?;
+base Partition : [regions.id, categories.id]
+base Clustering : [items.id, items.end_date, users.id]
+base Entities : [regions, categories, items, users]
+
+*************************Insert Support-Table Query*************************************
+Base Query : insert into buy_now set buy_now.id = ?, buy_now.qty = ?, buy_now.date = ? linkto bought.items(?items.id), buy.users(?users.id);
+Type : InsertSupportTable
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.max_bid, items.name, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.initial_price, items.description
+Relations : NULL
+MSG : 
+base Table: select buy_now.*, items.* from items.bought.buy_now.buy.users where users.id = ? and buy_now.date >= ?;
+base Partition : [users.id]
+base Clustering : [buy_now.date, items.id, buy_now.id]
+base Columns : [items.buy_now, items.name, items.max_bid, buy_now.qty, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price]
+base Entities : [buy_now, items, users]
+
+*************************Insert Support-Table Query*************************************
+Base Query : insert into bids set bids.id = ?, bids.qty = ?, bids.bid = ?, bids.date = ? linkto bidden.items(?items.id), bidding.users(?users.id);
+Type : InsertSupportTable
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname
+Relations : NULL
+MSG : 
+base Table: select users.id, users.nickname, bids.id, bids.qty, bids.bid, bids.date from users.bidding.bids.bidden.items where items.id = ? order by bids.date;
+base Partition : [items.id]
+base Clustering : [bids.id, bids.date, users.id]
+base Columns : [users.nickname, bids.bid, bids.qty]
+base Entities : [bids, items, users]
+
+*************************Insert Support-Table Query*************************************
+Base Query : insert into bids set bids.id = ?, bids.qty = ?, bids.bid = ?, bids.date = ? linkto bidden.items(?items.id), bidding.users(?users.id);
+Type : InsertSupportTable
+Partition_keys : items.id
+Clustering_keys : Null 
+Nonkey_columns : items.buy_now, items.max_bid, items.name, items.quantity, items.end_date, items.reserve_price, items.nb_of_bids, items.start_date, items.initial_price, items.description
+Relations : NULL
+MSG : 
+base Table: select items.* from items.bidden.bids.bidding.users where users.id = ? and items.end_date >= ?;
+base Partition : [users.id]
+base Clustering : [items.id, bids.id, items.end_date]
+base Columns : [items.buy_now, items.name, items.max_bid, items.quantity, items.reserve_price, items.nb_of_bids, items.start_date, items.description, items.initial_price]
+base Entities : [bids, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.nb_of_bids = ?, items.max_bid = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : categories.id
+Nonkey_columns : items.end_date
+Relations : category
+MSG : base Table: select items.* from items.category.categories where categories.id = ? and items.end_date >= ?;
+base Partition : [categories.id]
+base Clustering : [items.id, items.end_date]
+base Entities : [categories, items]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.nb_of_bids = ?, items.max_bid = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : buy_now.id, users.id
+Nonkey_columns : buy_now.date
+Relations : buy,bought
+MSG : base Table: select buy_now.*, items.* from items.bought.buy_now.buy.users where users.id = ? and buy_now.date >= ?;
+base Partition : [users.id]
+base Clustering : [buy_now.date, items.id, buy_now.id]
+base Entities : [buy_now, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.nb_of_bids = ?, items.max_bid = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : users.id
+Nonkey_columns : items.end_date
+Relations : sell
+MSG : base Table: select items.* from items.sell.users where users.id = ? and items.end_date >= ?;
+base Partition : [users.id]
+base Clustering : [items.id, items.end_date]
+base Entities : [items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.nb_of_bids = ?, items.max_bid = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : bids.id, users.id
+Nonkey_columns : items.end_date
+Relations : bidden,bidding
+MSG : base Table: select items.* from items.bidden.bids.bidding.users where users.id = ? and items.end_date >= ?;
+base Partition : [users.id]
+base Clustering : [items.id, bids.id, items.end_date]
+base Entities : [bids, items, users]
+
+*************************Update-Support Table Query*************************************
+Base Query : update items set items.nb_of_bids = ?, items.max_bid = ? where items.id = ?;
+Type : UpdateSupportTable
+Partition_keys : items.id
+Clustering_keys : regions.id, categories.id, users.id
+Nonkey_columns : items.end_date
+Relations : category,sell,region
+MSG : base Table: select items.* from categories.category.items.sell.users.region.regions where regions.id = ? and categories.id = ? and items.end_date >= ?;
+base Partition : [regions.id, categories.id]
+base Clustering : [items.id, items.end_date, users.id]
+base Entities : [regions, categories, items, users]
+
+*************************Insert Support-Table Query*************************************
+Base Query : insert into comments set comments.id = ?, comments.rating = ?, comments.date = ?, comments.comment = ? linkto send_from_user.users(?users.id), recive_to_user.users(?users.id), comment_on.items(?items.id);
+Type : InsertSupportTable
+Partition_keys : users.id
+Clustering_keys : Null 
+Nonkey_columns : users.nickname
+Relations : NULL
+MSG : 
+base Table: select users.nickname from comments.send_from_user.users where comments.id = ?;
+base Partition : [comments.id]
+base Clustering : [users.id]
+base Columns : [users.nickname]
+base Entities : [comments, users]
