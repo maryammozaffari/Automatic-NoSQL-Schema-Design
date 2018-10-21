@@ -1,0 +1,55 @@
+  
+  # Define queries and their relative weights, weights taken from below
+  # http://rubis.ow2.org/results/SB-BMP/Browsing/JBoss-SB-BMP-Br-1500/perf.html#run_stat
+
+  Group 'BrowseCategories', weight: 4.44 do
+ 
+	Q0 'SELECT Users.Nickname, Users.Password FROM Users WHERE Users.ID = ? '
+    Q1 'SELECT Categories.ID, Categories.Name FROM Categories WHERE ' \
+       'Categories.Dummy = 1 -- 2'
+  end
+  
+  Group 'BrowseRegions', weight: 3.21 do
+  
+    Q2 'SELECT Regions.ID, Regions.Name FROM Regions ' \
+       'WHERE Regions.Dummy = 1'
+  end
+
+  Group 'ViewBidHistory', weight: 2.38 do
+  
+    Q3 'SELECT Items.Name FROM Items WHERE Items.ID = ?'
+    Q4 'SELECT Users.ID, Users.Nickname, Bids.ID, Bids.Qty, ' \
+       'Bids.Bid, Bids.Date FROM Users.bidding.Bids.bidden.Items WHERE Items.ID = ? ' \
+       'ORDER BY Bids.date -- 4'
+  end
+
+  Group 'ViewItem', weight: 22.95 do
+  
+    Q5 'SELECT Items.* FROM Items WHERE Items.ID = ?'
+    Q6 'SELECT Bids.* FROM Items.bidden.Bids WHERE Items.ID = ?'
+  end
+
+  Group 'SearchItemsByCategory', weight: 27.77 do
+  
+    Q7 'SELECT Items.* FROM Items.category.Categories ' \
+       'WHERE Categories.ID = ? AND Items.End_date >= ? LIMIT 25'
+  end
+  
+  Group 'ViewUserInfo', weight: 4.41 do
+  
+    Q8   'SELECT Users.* FROM Users WHERE Users.ID = ?'
+    Q9   'SELECT Comments.ID, Comments.Rating, Comments.Date, Comments.Comment ' \
+         'FROM Comments.recive_to_user.Users WHERE Users.ID = ? -- 9'
+	Q10  'SELECT Comments.ID, Comments.Rating, Comments.Date, Comments.Comment ' \
+      'FROM Comments.send_from_user.Users WHERE Users.ID = ?'
+  end
+  
+  Group 'SearchItemsByRegion', weight: 8.26 do
+	
+    Q11 'SELECT Items.* FROM ' \
+        'Categories.category.Items.sell.Users.region.Regions WHERE Regions.ID = ? AND Categories.ID = ? ' \
+        'AND Items.End_date >= ? LIMIT 25 -- 35'
+  end
+
+end
+
