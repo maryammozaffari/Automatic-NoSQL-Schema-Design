@@ -1,0 +1,72 @@
+***********Table regions*******************
+Partition_keys : regions.id
+Clustering_keys :null
+Nonkey_columns: regions.name
+***********Table categories*******************
+Partition_keys : categories.id
+Clustering_keys :null
+Nonkey_columns: categories.name
+***********Table items*******************
+Partition_keys : items.id
+Clustering_keys :items.end_date
+Nonkey_columns: items.*
+***********Table comments*******************
+Partition_keys : comments.id
+Clustering_keys :to_users.id, from_users.id
+Nonkey_columns: comments.*
+***************Table users*************************
+Partition_keys : users.id
+Clustering_keys :regions.id
+Nonkey_columns:users['*']
+****************Table bids****************
+Partition_keys : bids.id
+Clustering_keys :users.id, items.id, bids.date
+Nonkey_columns:bids['*']
+*****************Table buy_now******************
+Partition_keys :  buy_now.id
+Clustering_keys :items.id, buy_now.date
+Nonkey_columns:buy_now['*']
+***********Table all_categories***********************
+Partition_keys : categories.dummy
+Clustering_keys :categories.id
+Nonkey_columns: Null
+**************Table all_regions****************
+Partition_keys : regions.dummy
+Clustering_keys :regions.id
+Nonkey_columns:Null 
+**************Table bids_by_item******************
+Partition_keys : items.id
+Clustering_keys :bids.id
+Nonkey_columns: 
+**************Table items_by_category*****************
+Partition_keys : categories.id
+Clustering_keys :items.id
+Nonkey_columns:
+*****************Table items_by_region***************
+Partition_keys : regions.id, categories.id
+Clustering_keys :items.id, users.id
+Nonkey_columns: 
+****************Table comments_recieve_user*********
+Partition_keys : users.id
+Clustering_keys :comments.id
+Nonkey_columns: null
+relationships: recive_to_user
+****************Table comments_send_user*********
+Partition_keys : users.id
+Clustering_keys :comments.id
+Nonkey_columns: null
+relationships: send_from_user
+***************Table items_sell_users*********************
+Partition_keys : users.id
+Clustering_keys :items.id
+Nonkey_columns:
+Relations: sell
+************Table buynow_by_user*******************
+Partition_keys : users.id 
+Clustering_keys :buynow.id
+Nonkey_columns: 
+
+************Table bids_by_user****************
+Partition_keys : users.id
+Clustering_keys : bids.id
+Nonkey_columns: null
