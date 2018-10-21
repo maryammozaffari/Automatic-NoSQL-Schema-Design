@@ -1,0 +1,107 @@
+AFM Result:
+all_categories:browsecategories : 661601
+
+all_regions:browseregions : 121645
+
+bids:aboutme : 3034
+
+bids:putbid : 35549
+
+bids:storebid : 3237
+
+bids:viewbidhistory : 10296
+
+bids:viewitem : 93444
+
+bids_by_item:putbid : 35540
+
+bids_by_item:storebid : 3237
+
+bids_by_item:viewbidhistory : 10292
+
+bids_by_item:viewitem : 93440
+
+bids_by_user:aboutme : 3035
+
+bids_by_user:storebid : 3237
+
+buy_now:aboutme : 1818
+
+buy_now:storebuynow : 956
+
+buynow_by_user:aboutme : 1819
+
+buynow_by_user:storebuynow : 956
+
+categories:browsecategories : 661700
+
+comments:aboutme : 2595
+
+comments:storecomment : 389
+
+comments:viewuserinfo : 1607
+
+comments_recieve_user:aboutme : 1117
+
+comments_recieve_user:storecomment : 389
+
+comments_recieve_user:viewuserinfo : 1608
+
+comments_send_user:storecomment : 389
+
+items:aboutme : 2235
+
+items:buynow : 1005
+
+items:putbid : 4670
+
+items:putcomment : 402
+
+items:registeritem : 462
+
+items:searchitemsbycategory : 5583686
+
+items:searchitemsbyregion : 35959
+
+items:storebid : 6474
+
+items:storebuynow : 1912
+
+items:viewbidhistory : 1335
+
+items:viewitem : 12265
+
+items_by_category:registeritem : 462
+
+items_by_category:searchitemsbycategory : 5583302
+
+items_by_region:registeritem : 462
+
+items_by_region:searchitemsbyregion : 35954
+
+items_sell_users:aboutme : 418
+
+items_sell_users:registeritem : 462
+
+regions:browseregions : 121706
+
+users:aboutme : 2954
+
+users:browsecategories : 6617
+
+users:buynow : 1005
+
+users:putbid : 4670
+
+users:putcomment : 804
+
+users:registeruser : 929
+
+users:storecomment : 778
+
+users:viewbidhistory : 10296
+
+users:viewuserinfo : 2150
+
+======== SUM ======
+Sum : 13176304
