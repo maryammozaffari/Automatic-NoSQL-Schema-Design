@@ -1,1 +1,157 @@
 
+
+  # Define queries and their relative weights, weights taken from below
+  # http://rubis.ow2.org/results/SB-BMP/Bidding/JBoss-SB-BMP-Bi-1500/perf.html#run_stat 
+  
+ Group 'BrowseCategories', weight: 7.65,
+                            write_heavy: 7.65 
+							write_light: 7.65 do
+							
+	Q 'SELECT Users.Nickname, Users.Password FROM Users WHERE Users.ID = ? '
+    Q 'SELECT Categories.ID, Categories.Name FROM Categories WHERE ' \
+      'Categories.Dummy = 1 -- 2'
+  end
+
+  Group 'ViewBidHistory', weight: 1.54,
+                          write_heavy: 1.54
+                          write_light: 1.54 do
+						  
+    Q 'SELECT Items.Name FROM Items WHERE Items.ID = ? -- 3'
+    Q 'SELECT Users.ID, Users.Nickname, Bids.ID, Bids.Qty, ' \
+      'Bids.Bid, Bids.Date FROM Users.bidding.Bids.bidden.Items WHERE Items.ID = ? ' \
+      'ORDER BY Bids.Date -- 4'
+  end
+
+  Group 'ViewItem', weight: 14.17,
+                    write_heavy: 14.17 
+					write_light: 14.17 do
+    Q 'SELECT Items.* FROM Items WHERE Items.ID = ? -- 5'
+    Q 'SELECT Bids.* FROM Items.bidden.Bids WHERE Items.ID = ? -- 6'
+  end
+
+  Group 'SearchItemsByCategory', weight: 15.94,
+                                 write_heavy: 15.94 
+								 write_light: 15.94 do
+    Q 'SELECT Items.* FROM Items.category.Categories WHERE ' \
+      'Categories.ID = ? AND Items.End_date >= ? LIMIT 25 -- 7'
+  end
+  
+  Group 'ViewUserInfo', weight: 2.48,
+                        write_heavy: 2.48 
+						write_light: 2.48 do
+    Q 'SELECT Users.* FROM Users WHERE Users.ID = ?'
+    Q 'SELECT Comments.ID, Comments.Rating, Comments.Date, Comments.Comment ' \
+      'FROM Comments.recive_to_user.Users WHERE Users.ID = ? -- 9'
+	Q 'SELECT Comments.ID, Comments.Rating, Comments.Date, Comments.Comment ' \
+      'FROM Comments.send_from_user.Users WHERE Users.ID = ?'
+  end
+
+  Group 'RegisterItem', weight: 0.53,
+                        write_heavy: 0.53 * 100 
+						write_light: 0.53 * 1/100 do
+						
+    Q 'INSERT INTO Items SET Items.ID=?, Items.Name=?, Items.Description=?, Items.Initial_price=?, ' \
+      'Items.Quantity=?, Items.Reserve_price=?, Items.Buy_now=?, Items.Nb_of_bids=0, Items.Max_bid=0, ' \
+      'Items.Start_date=?, Items.End_date=?  LinkTO category.Categories(?Categoris.ID), sell.Users(?Users.ID) -- 10'
+  end
+
+  Group 'RegisterUser', weight: 1.07,
+                        write_heavy: 1.07 * 100 
+						write_light: 1.07 * 1/100 do
+						
+    Q 'INSERT INTO Users SET Users.ID=?, Users.Firstname=?, Users.Lastname=?, Users.Nickname=?, ' \
+      'Users.Password=?, Users.Email=?, Users.Rating=0, Users.Balance=0, Users.Creation_date=? ' \
+      'LinkTO region.Regions(?Regions.ID) -- 11'
+  end
+
+  Group 'BuyNow', weight: 1.16 
+                  write_heavy: 1.16 
+				  write_light: 1.16 do
+  
+    Q 'SELECT Users.Nickname FROM Users WHERE Users.ID = ? -- 12'
+    Q 'SELECT Items.* FROM Items WHERE Items.ID=? -- 13'
+  end
+
+  Group 'StoreBuyNow', weight: 1.10,
+                       write_heavy: 1.10 * 100 
+					   write_light: 1.10 * 1/100 do
+    Q 'SELECT Items.Quantity, Items.Nb_of_bids, Items.End_date FROM Items ' \
+      'WHERE Items.ID=? -- 14'
+    Q 'UPDATE Items SET Items.Quantity=?, Items.Nb_of_bids=?, Items.End_date=? WHERE Items.ID=? -- 15'
+    Q 'INSERT INTO Buy_now SET Buy_Now.ID=?, Buy_now.Qty=?, Buy_now.Date=? ' \
+      'LinkTO bought.Items(?Items.ID), buy.Users(?Users.ID) -- 16'
+  end
+
+  Group 'PutBid', weight: 5.40 
+                  write_heavy: 5.40 
+				  write_light: 5.40 do
+  
+    Q 'SELECT Users.Nickname, Users.Password FROM Users WHERE Users.ID = ?-- 17'
+    Q 'SELECT Items.* FROM Items WHERE Items.ID=? -- 18'
+    Q 'SELECT Bids.Qty, Bids.Date FROM Bids.bidden.Items WHERE Items.ID=? ' \
+      'ORDER BY Bids.bid LIMIT 2 -- 19'
+  end
+
+  Group 'StoreBid', bidding: 3.74,
+                    write_heavy: 3.74 * 100 
+					write_light: 3.74 * 1/100 do
+					
+    Q 'INSERT INTO Bids SET Bids.ID=?, Bids.Qty=?, Bids.Bid=?, Bids.Date=? ' \
+      'LinkTO bidden.Items(?Items.ID), bidding.Users(?Users.ID) -- 20'
+    Q 'SELECT Items.Nb_of_bids, Items.Max_bid FROM Items WHERE Items.ID=? -- 21'
+    Q 'UPDATE Items SET Items.Nb_of_bids=?, Items.Max_bid=? WHERE Items.ID=? -- 22'
+  end
+
+  Group 'PutComment', bidding: 0.46 
+                      write_heavy: 0.46 
+					  write_light: 0.46 do
+  
+    Q 'SELECT Users.Nickname, Users.Password FROM Users WHERE Users.ID = ? -- 23'
+    Q 'SELECT Items.* FROM Items WHERE Items.ID=? -- 24'
+    Q 'SELECT Users.* FROM Users WHERE Users.ID=? -- 25'
+  end
+
+  Group 'StoreComment', bidding: 0.45,
+                        write_heavy: 0.45 * 100 
+						write_light: 0.45 * 1/100 do
+						
+    Q 'SELECT Users.Rating FROM Users WHERE Users.ID=? -- 26'
+    Q 'UPDATE Users SET Users.Rating=? WHERE Users.ID=? -- 27'
+    Q 'INSERT INTO Comments SET Comments.CammentID=?, Comments.Rating=?, Comments.Date=?, Comments.Comment=? ' \
+      'LinkTO send_from_user.Users(?Users.ID), recive_to_user.Users(?Users.ID), comment_on.Items(?Items.ID) -- 28'
+  end
+
+  Group 'AboutMe', weight: 1.71 
+                   write_heavy: 1.71 
+				   write_light: 1.71 do
+  
+    Q 'SELECT Users.* FROM Users WHERE Users.ID=? -- 29'
+    Q 'SELECT Comments.* FROM Comments.recive_to_user.Users ' \
+      'WHERE Users.ID= ? -- 30'
+    Q 'SELECT Users.Nickname FROM Comments.send_from_user.Users WHERE Comments.ID = ? -- 31'
+    Q 'SELECT Buy_now.*, items.* FROM items.bought.Buy_now.buy.Users ' \
+      'WHERE Users.ID = ? AND Buy_now.Date>=? -- 32'
+    Q 'SELECT Items.* FROM Items.sell.Users WHERE Users.ID=? AND ' \
+      'Items.End_date >=? -- 33'
+    Q 'SELECT Items.* FROM Items.bidden.Bids.bidding.Users WHERE Users.ID=? AND ' \
+      'Items.End_date>=? -- 34'
+  end
+
+  Group 'SearchItemsByRegion', weight: 6.34 
+                               write_heavy: 6.34 
+							   write_light: 6.43 do
+  
+    Q 'SELECT Items.* FROM ' \
+      'Categories.category.Items.sell.Users.region.Regions WHERE Regions.ID = ? AND Categories.ID = ? ' \
+      'AND Items.End_date >= ? LIMIT 25 -- 35'
+  end
+
+  Group 'BrowseRegions', weight: 5.39 
+                         write_heavy: 5.39 
+						 write_light: 5.39 do
+   
+    Q 'SELECT Regions.ID, Regions.Name FROM Regions ' \
+      'WHERE Regions.Dummy = 1 -- 36'
+  end
+end
+
