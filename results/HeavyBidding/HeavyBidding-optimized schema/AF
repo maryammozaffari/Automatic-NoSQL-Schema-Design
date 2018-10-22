@@ -1,0 +1,101 @@
+AFM Result:
+mv_table22:putbid : 35229
+
+stable14:registeruser : 92900
+
+table10:aboutme : 431
+
+table10:registeritem : 46200
+
+table11:aboutme : 2897
+
+table11:storebid : 323700
+
+table12:registeritem : 46200
+
+table12:searchitemsbyregion : 43579
+
+table13:browseregions : 121645
+
+table1:browsecategories : 661601
+
+table22:storebid : 323700
+
+table22:viewbidhistory : 9951
+
+table22:viewitem : 93722
+
+table2:putbid : 35221
+
+table2:storebid : 323700
+
+table2:storebuynow : 1659887
+
+table2:viewbidhistory : 9949
+
+table2:viewitem : 93712
+
+table3:aboutme : 5082
+
+table3:buynow : 1005
+
+table3:putbid : 4670
+
+table3:putcomment : 402
+
+table3:registeritem : 46200
+
+table3:searchitemsbycategory : 6486528
+
+table3:searchitemsbyregion : 43582
+
+table3:storebid : 647400
+
+table3:storebuynow : 191200
+
+table3:viewbidhistory : 1335
+
+table3:viewitem : 12265
+
+table4:registeritem : 46200
+
+table4:searchitemsbycategory : 6486112
+
+table5:aboutme : 1477
+
+table5:browsecategories : 6617
+
+table5:buynow : 1005
+
+table5:putbid : 4670
+
+table5:putcomment : 804
+
+table5:registeruser : 92900
+
+table5:storecomment : 77800
+
+table5:viewuserinfo : 2150
+
+table6:aboutme : 1070
+
+table6:storecomment : 38900
+
+table6:viewuserinfo : 1585
+
+table7:storecomment : 38900
+
+table8:aboutme : 1477
+
+table8:storecomment : 38900
+
+table92:aboutme : 1752
+
+table92:storebuynow : 95600
+
+table9:aboutme : 1752
+
+table9:storebuynow : 95600
+
+======== SUM ======
+Sum : 18399164
